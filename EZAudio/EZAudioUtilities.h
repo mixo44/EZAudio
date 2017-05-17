@@ -214,6 +214,15 @@ typedef NSRect EZRect;
 //------------------------------------------------------------------------------
 
 /**
+ Creates a single-channel, signed int-based AudioStreamBasicDescription.
+ @param sampleRate A float representing the sample rate.
+ @return A new AudioStreamBasicDescription with the specified format.
+ */
++ (AudioStreamBasicDescription)monoSignedIntegerPackedFormatWithSampleRate:(float)sampleRate;
+
+//------------------------------------------------------------------------------
+
+/**
  Creates a two-channel, non-interleaved, float-based AudioStreamBasicDescription (as of 0.0.6 this is the same as `stereoFloatNonInterleavedFormatWithSampleRate:`).
  @param sampleRate A float representing the sample rate.
  @return A new AudioStreamBasicDescription with the specified format.
