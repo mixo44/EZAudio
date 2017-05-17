@@ -1,5 +1,5 @@
 //
-//  EZAudioiOS.m
+//  EZAudioiOS.h
 //  EZAudio
 //
 //  Created by Tommaso Piazza on 30/09/15.
@@ -23,4 +23,4 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <EZAudioiOS/EZAudio.h>
+#import "EZAudio.h"
