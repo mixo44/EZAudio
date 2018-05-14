@@ -271,7 +271,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
 {
     AudioStreamBasicDescription audioFormat;
     UInt32 byteSize = sizeof(SInt16);
-    audioFormat.mSampleRate       = 8000;
+    audioFormat.mSampleRate       = sampleRate;
     audioFormat.mFormatID         = kAudioFormatLinearPCM;
     audioFormat.mFormatFlags      = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
     audioFormat.mFramesPerPacket  = 1;
