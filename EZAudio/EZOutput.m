@@ -49,7 +49,7 @@ typedef struct
     float **floatData;
     
     // nodes
-    EZAudioNodeInfo converterNodeInfo;
+//    EZAudioNodeInfo converterNodeInfo;
     EZAudioNodeInfo mixerNodeInfo;
     EZAudioNodeInfo outputNodeInfo;
     
@@ -213,14 +213,14 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
     //
     // Add converter node
     //
-    AudioComponentDescription converterDescription;
-    converterDescription.componentType = kAudioUnitType_FormatConverter;
-    converterDescription.componentSubType = kAudioUnitSubType_AUConverter;
-    converterDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
-    [EZAudioUtilities checkResult:AUGraphAddNode(self.info->graph,
-                                                 &converterDescription,
-                                                 &self.info->converterNodeInfo.node)
-                        operation:"Failed to add converter node to audio graph"];
+//    AudioComponentDescription converterDescription;
+//    converterDescription.componentType = kAudioUnitType_FormatConverter;
+//    converterDescription.componentSubType = kAudioUnitSubType_AUConverter;
+//    converterDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
+//    [EZAudioUtilities checkResult:AUGraphAddNode(self.info->graph,
+//                                                 &converterDescription,
+//                                                 &self.info->converterNodeInfo.node)
+//                        operation:"Failed to add converter node to audio graph"];
     
     //
     // Add mixer node
@@ -259,13 +259,13 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
     //
     // Make node connections
     //
-    OSStatus status = [self connectOutputOfSourceNode:self.info->converterNodeInfo.node
-                                  sourceNodeOutputBus:0
-                                    toDestinationNode:self.info->mixerNodeInfo.node
-                              destinationNodeInputBus:0
-                                              inGraph:self.info->graph];
-    [EZAudioUtilities checkResult:status
-                        operation:"Failed to connect output of source node to destination node in graph"];
+//    OSStatus status = [self connectOutputOfSourceNode:self.info->converterNodeInfo.node
+//                                  sourceNodeOutputBus:0
+//                                    toDestinationNode:self.info->mixerNodeInfo.node
+//                              destinationNodeInputBus:0
+//                                              inGraph:self.info->graph];
+//    [EZAudioUtilities checkResult:status
+//                        operation:"Failed to connect output of source node to destination node in graph"];
     
     //
     // Connect mixer to output
@@ -280,11 +280,11 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
     //
     // Get the audio units
     //
-    [EZAudioUtilities checkResult:AUGraphNodeInfo(self.info->graph,
-                                                  self.info->converterNodeInfo.node,
-                                                  &converterDescription,
-                                                  &self.info->converterNodeInfo.audioUnit)
-                        operation:"Failed to get converter audio unit"];
+//    [EZAudioUtilities checkResult:AUGraphNodeInfo(self.info->graph,
+//                                                  self.info->converterNodeInfo.node,
+//                                                  &converterDescription,
+//                                                  &self.info->converterNodeInfo.audioUnit)
+//                        operation:"Failed to get converter audio unit"];
     [EZAudioUtilities checkResult:AUGraphNodeInfo(self.info->graph,
                                                   self.info->mixerNodeInfo.node,
                                                   &mixerDescription,
@@ -303,7 +303,7 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
     converterCallback.inputProc = EZOutputConverterInputCallback;
     converterCallback.inputProcRefCon = (__bridge void *)(self);
     [EZAudioUtilities checkResult:AUGraphSetNodeInputCallback(self.info->graph,
-                                                              self.info->converterNodeInfo.node,
+                                                              self.info->mixerNodeInfo.node,
                                                               0,
                                                               &converterCallback)
                         operation:"Failed to set render callback on converter node"];
@@ -468,13 +468,13 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
     }
     
     self.info->clientFormat = clientFormat;
-    [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->converterNodeInfo.audioUnit,
-                                                       kAudioUnitProperty_StreamFormat,
-                                                       kAudioUnitScope_Output,
-                                                       0,
-                                                       &self.info->clientFormat,
-                                                       sizeof(self.info->clientFormat))
-                        operation:"Failed to set output client format on converter audio unit"];
+//    [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->converterNodeInfo.audioUnit,
+//                                                       kAudioUnitProperty_StreamFormat,
+//                                                       kAudioUnitScope_Output,
+//                                                       0,
+//                                                       &self.info->clientFormat,
+//                                                       sizeof(self.info->clientFormat))
+//                        operation:"Failed to set output client format on converter audio unit"];
     [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->mixerNodeInfo.audioUnit,
                                                        kAudioUnitProperty_StreamFormat,
                                                        kAudioUnitScope_Input,
@@ -554,7 +554,7 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
 - (void)setInputFormat:(AudioStreamBasicDescription)inputFormat
 {
     self.info->inputFormat = inputFormat;
-    [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->converterNodeInfo.audioUnit,
+    [EZAudioUtilities checkResult:AudioUnitSetProperty(self.info->mixerNodeInfo.audioUnit,
                                                        kAudioUnitProperty_StreamFormat,
                                                        kAudioUnitScope_Input,
                                                        0,
@@ -612,10 +612,10 @@ OSStatus EZOutputGraphRenderCallback(void                       *inRefCon,
 
 //------------------------------------------------------------------------------
 
-- (AudioUnit)converterAudioUnit
-{
-    return self.info->converterNodeInfo.audioUnit;
-}
+//- (AudioUnit)converterAudioUnit
+//{
+//    return self.info->converterNodeInfo.audioUnit;
+//}
 
 //------------------------------------------------------------------------------
 
